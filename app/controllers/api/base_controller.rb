@@ -71,16 +71,23 @@ module Api
 	  head :no_content
 	end
 
-	# GET /api/{plural_resource_name}
-	def index    
-	  plural_resource_name = "@#{resource_name.pluralize}"    
-	  resources = resource_class.where(query_params)
-	                            .page(page_params[:page])
-	                            .per(page_params[:page_size])
 
-	  instance_variable_set(plural_resource_name, resources)
-	  respond_with resources instance_variable_get(plural_resource_name)        
-	end
+  # GET /api/{plural_resource_name}
+  def index
+    #plural_resource_name = "@#{resource_name.pluralize}"
+    #resources = resource_class.where(query_params)
+    #                          .page(page_params[:page])
+    #                          .per(page_params[:page_size])
+
+    #instance_variable_set(plural_resource_name, resources)
+    #respond_with instance_variable_get(plural_resource_name)
+
+    respond_with @articles= resource_class.all
+      #instance_variable_set "@#{resource_name.pluralize}", resource_class.all
+      #respond_with instance_variable_get("@#{resource_name.pluralize}") if block_given?
+    
+
+  end
 
 	# GET /api/{plural_resource_name}/1
 	def show
